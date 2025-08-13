@@ -4,6 +4,6 @@
 
 **키워드:** 복소수 진법, 논리회로, ALU, 프랙털, 양자컴퓨팅, 영상 손실압축, AI
 
-> 본 논문은 2025년 [한국계산과학공학회](http://www.cse.or.kr/) 추계학술대회 출품 논문이며, 해당 분야에 대한 국내 연구 활성화를 목적으로 국문으로 작성한 만큼 자유롭게 이용 가능함을 알랍니다.
+> 본 논문은 2025년 [한국계산과학공학회](http://www.cse.or.kr/) 추계학술대회 출품 논문이며, 해당 분야에 대한 국내 연구 활성화를 목적으로 국문으로 작성한 만큼 자유롭게 이용 가능함을 알립니다.
 > 
 > This paper was submitted to the 2025 Fall Conference of the [Korean Society for Computational Science and Engineering](http://www.cse.or.kr/). It was written in Korean to promote research in this field within Korea and is freely available for use.
