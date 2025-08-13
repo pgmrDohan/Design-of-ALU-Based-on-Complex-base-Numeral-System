@@ -247,7 +247,7 @@ $z$를 $-1+i$ 진법으로 나타낸 후 위치 기수법의 정의에 따라 �
 4비트(Nibble) 입력에 대해 총 12비트를 출력한다. 진리표를 그리고 각 출력에 대해 온라인 카르노 맵 분석기를 사용하여 최적화 하였다. 각 출력 비트의 논리 식은 AND, OR, XOR 게이트 조합으로 구현되며 병렬 구조를 통해 지연을 최소화한다. FPGA에 따라 사용되는 게이트 수에 차이가 발생하며 평균 771개에서 최저 420개이다.
 
 \section{영상 프랙털 압축}
-앞서 2장에서 살펴본 $-1+i$ 진법은 소수부를 복소평면에 나타내어 트윈드래곤 프랙털을 얻을 수 있다. 본 절에서는 전통적인 영상 프랙털 압축과 같이 2차원 영상을 여러 개의 트윈드래곤 모양으로 분할한 뒤 각 타일에 대해 웨이블릿 변환을 결합하는 \emph{프랙탈-웨이블릿} 압축 기법을 제안한다.
+앞서 2장에서 살펴본 $-1+i$ 진법은 소수부를 복소평면에 나타내어 트윈드래곤 프랙털을 얻을 수 있다. 본 절에서는 전통적인 영상 프랙털 압축과 같이 2차원 영상을 여러 개의 트윈드래곤 모양으로 분할한 뒤 각 타일에 대해 웨이블릿 변환하여 영상을 압축하는 \emph{프랙털-웨이블릿} 압축 기법을 제안한다.
 
 각 픽셀을 복소평면의 한 점 $z$로 사상하고, 영상을 유한 개의 타일 $\{T_k\}_{k=1}^K$로 분할한다. 각 타일 $T_k$의 점들에 대해 $\alpha z +\beta$를 통해 축소, 회전, 이동을 통해 전체 이미지를 근사한다 (반복함수계 Iterated function system; IFS). 각 타일에 대해 2D 웨이블릿 변환을 적용하여 계수 집합 $w_{k}[n]$를 얻는다. 역변환에서는 저장된 계수만 복원해 타일을 재구성한다.
 
@@ -257,11 +257,11 @@ w_k[u, v] = \sum_{x, y \in T_k} I(x, y) \, \psi_{u}(x)\, \psi_{v}(y)
 $$
 
 \section{결론 및 향후 연구}
-본 논문에서는 $-1+i$을 기수로 하는 복소수 진법을 기반으로 ALU의 개념적 설계와 응용 가능성을 정리하였다. 수학적 관점에서 $-1+i$ 진법의 표현성(가우스 정수의 유한 표현), 자리수 변환 알고리즘, 그리고 덧셈·뺄셈·곱셈·나눗셈의 연산 규칙을 체계화하였다. 하드웨어 관점에서는 비트열을 직접 다루는 연산기의 설계 원리와 HDL 수준의 설계 흐름을 제시했으며, 프랙탈 구조(트윈드래곤)를 이용한 영상 프랙탈-웨이블릿 압축 파이프라인을 제안하였다.
+본 논문에서는 $-1+i$을 기수로 하는 복소수 진법을 기반으로 ALU의 개념적 설계와 응용 가능성을 정리하였다. 수학적 관점에서 $-1+i$ 진법의 표현성(가우스 정수의 유한 표현), 자리수 변환 알고리즘, 그리고 덧셈·뺄셈·곱셈·나눗셈의 연산 규칙을 체계화하였다. 하드웨어 관점에서는 비트열을 직접 다루는 연산기의 설계 원리와 HDL 수준의 설계 흐름을 제시했으며, 프랙털 구조(트윈드래곤)를 이용한 영상 프랙털-웨이블릿 압축 파이프라인을 제안하였다.
 \begin{itemize}
 \item \textbf{표현의 단일성:} 실수부·허수부를 분리하지 않고 하나의 비트열로 복소수를 표현하므로 데이터 경로를 단순화할 수 있다. 이는 특히 여러 복소수 연산을 연속적으로 수행할 때 레지스터 접근과 데이터 이동 비용을 줄이는 이점을 제공한다.
 \item \textbf{연산 횟수 관점의 잠재적 이득:} 전통적 복소수 곱셈(4개의 실수 곱셈 + 2개의 덧셈)에 비해 복소수 진법 기반 구현은 동일한 연산을 하나의 복소수 승산 경로로 통합함으로써 이론적으로 계산량을 크게 줄일 여지가 있다.
-\item \textbf{응용성:} FFT·컨볼루션 기반 연산, 복소수 기반 CNN(예: 스펙트럼 레이어), 양자컴퓨팅 시뮬레이션(복소수 진폭 연산)에 복소수 진법 기반 ALU를 적용하면 전체 워크로드 수준에서 실질적 성능 향상을 기대할 수 있다. 또한 트윈드래곤 기반 프랙탈 타일링은 영상 압축에서 자기유사성을 이용한 고효율 표현 수단으로 유망하다.
+\item \textbf{응용성:} FFT·컨볼루션 기반 연산, 복소수 기반 CNN(예: 스펙트럼 레이어), 양자컴퓨팅 시뮬레이션(복소수 진폭 연산)에 복소수 진법 기반 ALU를 적용하면 전체 워크로드 수준에서 실질적 성능 향상을 기대할 수 있다. 또한 트윈드래곤 기반 프랙털 타일링은 영상 압축에서 자기유사성을 이용한 고효율 표현 수단으로 유망하다.
 \end{itemize}
 \vspace{0.4cm}
 
@@ -287,6 +287,20 @@ T. Jamil, M. Awadalla, and I. Mohammed,
 \textit{International Journal of Advanced Computer Science and Applications (IJACSA)},
 vol.~10, no.~7, 2019.
 doi: \href{https://doi.org/10.14569/IJACSA.2019.0100734}{10.14569/IJACSA.2019.0100734}.
+
+\bibitem{Jamil2021Subtractor}
+T. Jamil, M. Awadalla, and I. Mohammed,
+``Complex Binary Subtractor Designs and their Hardware Implementations,''
+\textit{Int. J. Adv. Res. Eng. Technol.},
+vol.~12, no.~5, pp.~111--125, 2021.
+\url{https://iaeme.com/Home/article_id/IJARET_12_05_011}.
+
+\bibitem{Jamil2021Multiplier}
+T. Jamil, M. Awadalla, and I. Mohammed,
+``Nibble-size Multiplier Circuit Designs and their FPGA Implementations for Complex Binary Number System,''
+\textit{International Journal of Electrical Engineering and Technology (IJEET)},
+vol.~12, no.~6, pp.~105--121, 2021.
+\url{https://iaeme.com/Home/article_id/IJEET_12_06_012}.
 
 \bibitem{Knuth1960}
 D. E. Knuth,
@@ -345,27 +359,6 @@ W. J. Gilbert,
 \textit{Mathematics Magazine},
 vol.~57, no.~2, pp.~77--81, 1984.
 doi: \href{https://doi.org/10.1080/0025570X.1984.11977081}{10.1080/0025570X.1984.11977081}.
-
-\bibitem{Jamil2019}
-T. Jamil, M. Awadalla, and I. Mohammed,
-``Complex Binary Adder Designs and their Hardware Implementations,''
-\textit{International Journal of Advanced Computer Science and Applications},
-vol.~10, no.~7, 2019.
-doi: \href{http://dx.doi.org/10.14569/IJACSA.2019.0100734}{10.14569/IJACSA.2019.0100734}.
-
-\bibitem{Jamil2021Subtractor}
-T. Jamil, M. Awadalla, and I. Mohammed,
-``Complex Binary Subtractor Designs and their Hardware Implementations,''
-\textit{Int. J. Adv. Res. Eng. Technol.},
-vol.~12, no.~5, pp.~111--125, 2021.
-\url{https://iaeme.com/Home/article_id/IJARET_12_05_011}.
-
-\bibitem{Jamil2021Multiplier}
-T. Jamil, M. Awadalla, and I. Mohammed,
-``Nibble-size Multiplier Circuit Designs and their FPGA Implementations for Complex Binary Number System,''
-\textit{International Journal of Electrical Engineering and Technology (IJEET)},
-vol.~12, no.~6, pp.~105--121, 2021.
-\url{https://iaeme.com/Home/article_id/IJEET_12_06_012}.
 
 \bibitem{Blest2003}
 D. C. Blest and T. Jamil,
